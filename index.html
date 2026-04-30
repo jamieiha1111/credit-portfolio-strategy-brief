@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credit Portfolio Strategy Brief — ASB Hawaii Market</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d2240;
+    --navy-mid: #1a3558;
+    --navy-light: #2a4a72;
+    --slate: #4a6080;
+    --slate-light: #8fa3bb;
+    --green: #2d7a5f;
+    --green-light: #3a9b77;
+    --green-pale: #e8f5f0;
+    --red: #c0392b;
+    --red-light: #e74c3c;
+    --red-pale: #fdf0ee;
+    --amber: #d4820a;
+    --amber-pale: #fef7e8;
+    --off-white: #f7f8fa;
+    --white: #ffffff;
+    --border: #e2e8f0;
+    --border-dark: #c8d5e3;
+    --text-primary: #0d2240;
+    --text-secondary: #4a6080;
+    --text-muted: #8fa3bb;
+    --card-shadow: 0 1px 3px rgba(13,34,64,0.06), 0 4px 16px rgba(13,34,64,0.08);
+    --card-shadow-hover: 0 4px 12px rgba(13,34,64,0.10), 0 12px 32px rgba(13,34,64,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--text-primary);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* DISCLAIMER */
+  .disclaimer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.55);
+    text-align: center;
+    font-size: 10.5px;
+    padding: 7px 16px;
+    letter-spacing: 0.02em;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 24px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--navy), var(--navy-light), var(--green));
+  }
+
+  .header-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .brand-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 5vw, 34px);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  .header-sub {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+    font-weight: 400;
+  }
+
+  .decision-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+    white-space: nowrap;
+    transition: all 0.35s ease;
+    margin-top: 8px;
+  }
+
+  .badge-optimize { background: var(--green-pale); color: var(--green); border: 1px solid rgba(45,122,95,0.2); }
+  .badge-conservative { background: var(--amber-pale); color: var(--amber); border: 1px solid rgba(212,130,10,0.2); }
+  .badge-risky { background: var(--red-pale); color: var(--red); border: 1px solid rgba(192,57,43,0.2); }
+  .badge-monitor { background: #eef2f7; color: var(--slate); border: 1px solid var(--border-dark); }
+
+  .badge-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse 2s infinite;
+  }
+  .badge-optimize .badge-dot { background: var(--green); }
+  .badge-conservative .badge-dot { background: var(--amber); }
+  .badge-risky .badge-dot { background: var(--red); }
+  .badge-monitor .badge-dot { background: var(--slate); }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  /* HEADLINE METRICS */
+  .metrics-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .metric-card {
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    transition: all 0.2s ease;
+  }
+
+  .metric-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 6px;
+  }
+
+  .metric-value {
+    font-size: clamp(18px, 4vw, 26px);
+    font-weight: 700;
+    color: var(--navy);
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+    transition: all 0.3s ease;
+  }
+
+  .metric-delta {
+    font-size: 11px;
+    margin-top: 4px;
+    font-weight: 500;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .delta-up { color: var(--green); }
+  .delta-down { color: var(--red); }
+  .delta-neutral { color: var(--text-muted); }
+
+  /* MAIN CONTENT */
+  .main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px 16px 40px;
+  }
+
+  /* SECTION HEADERS */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 16px;
+    transition: box-shadow 0.2s ease;
+  }
+
+  .card:hover {
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+
+  /* EXECUTIVE SUMMARY */
+  .exec-summary {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    border-left: 3px solid var(--navy);
+    padding-left: 16px;
+    transition: all 0.4s ease;
+  }
+
+  /* HEALTH SCORE */
+  .health-score-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  .health-dial {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+  }
+
+  .health-dial svg {
+    transform: rotate(-90deg);
+  }
+
+  .health-dial-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .health-dial-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1;
+  }
+
+  .health-dial-text {
+    font-size: 8px;
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .health-info { flex: 1; }
+  .health-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 3px;
+  }
+  .health-sub {
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* SLIDERS */
+  .controls-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .slider-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .slider-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0.01em;
+  }
+
+  .slider-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--navy);
+    background: var(--off-white);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    min-width: 72px;
+    text-align: right;
+  }
+
+  input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--border);
+    outline: none;
+    cursor: pointer;
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--navy);
+    border: 2px solid var(--white);
+    box-shadow: 0 1px 4px rgba(13,34,64,0.25);
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+
+  input[type=range]::-webkit-slider-thumb:active {
+    transform: scale(1.2);
+    background: var(--navy-light);
+  }
+
+  input[type=range]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--navy);
+    border: 2px solid var(--white);
+    box-shadow: 0 1px 4px rgba(13,34,64,0.25);
+    cursor: pointer;
+  }
+
+  .slider-range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9.5px;
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ADVANCED INPUTS */
+  .advanced-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .adv-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .adv-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .adv-input {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    padding: 7px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--off-white);
+    color: var(--navy);
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .adv-input:focus {
+    border-color: var(--navy-light);
+    background: var(--white);
+  }
+
+  /* COMPARISON TABLE */
+  .compare-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13px;
+  }
+
+  .compare-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .compare-table th:not(:first-child) { text-align: right; }
+
+  .compare-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+
+  .compare-table td:not(:first-child) {
+    text-align: right;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+  }
+
+  .compare-table tr:last-child td { border-bottom: none; }
+
+  .row-baseline td { background: var(--off-white); }
+  .row-proposed td { background: rgba(45,122,95,0.04); }
+
+  .scenario-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .tag-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* TRADEOFF CHART */
+  #tradeoff-canvas {
+    width: 100%;
+    height: 200px;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* RISK SNAPSHOT */
+  .risk-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .risk-cell {
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+  }
+
+  .risk-cell-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 6px;
+  }
+
+  .risk-cell-value {
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    color: var(--navy);
+    line-height: 1;
+    transition: all 0.3s ease;
+  }
+
+  .risk-cell-sub {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  .risk-status {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .risk-ok { background: var(--green-pale); color: var(--green); border: 1px solid rgba(45,122,95,0.2); }
+  .risk-warn { background: var(--red-pale); color: var(--red); border: 1px solid rgba(192,57,43,0.2); }
+
+  /* PRIMARY LEVER */
+  .lever-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .lever-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .lever-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    width: 90px;
+    flex-shrink: 0;
+  }
+
+  .lever-bar-wrap {
+    flex: 1;
+    background: var(--border);
+    border-radius: 3px;
+    height: 6px;
+    overflow: hidden;
+  }
+
+  .lever-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s ease;
+  }
+
+  .lever-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    width: 36px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .lever-insight {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: var(--off-white);
+    border-left: 3px solid var(--navy);
+    border-radius: 0 6px 6px 0;
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    transition: all 0.3s ease;
+  }
+
+  /* EXPORT */
+  .export-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    padding: 13px 22px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: all 0.2s ease;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+
+  .export-btn:hover {
+    background: var(--navy-light);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(13,34,64,0.3);
+  }
+
+  .export-btn:active { transform: translateY(0); }
+
+  .export-output {
+    display: none;
+    background: var(--navy);
+    color: #c8d9ef;
+    border-radius: 8px;
+    padding: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    position: relative;
+  }
+
+  .export-output.visible { display: block; }
+
+  .export-copy-btn {
+    position: absolute;
+    top: 12px; right: 12px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.7);
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .export-copy-btn:hover {
+    background: rgba(255,255,255,0.2);
+    color: var(--white);
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 24px 16px;
+    font-size: 11px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    max-width: 960px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .footer strong {
+    color: var(--text-secondary);
+  }
+
+  /* DIVIDER */
+  .spacer { margin-bottom: 20px; }
+
+  /* VALUE HIGHLIGHT */
+  .val-green { color: var(--green) !important; }
+  .val-red { color: var(--red) !important; }
+  .val-amber { color: var(--amber) !important; }
+
+  /* MARKET CONTEXT BADGE */
+  .market-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(13,34,64,0.06);
+    border: 1px solid var(--border-dark);
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    color: var(--navy);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    margin-top: 10px;
+    text-transform: uppercase;
+  }
+
+  /* NUMBER ANIMATION */
+  .flash {
+    animation: numFlash 0.3s ease;
+  }
+
+  @keyframes numFlash {
+    0% { opacity: 0.4; transform: translateY(-2px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* RESPONSIVE */
+  @media (min-width: 600px) {
+    .controls-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .advanced-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .metrics-strip {
+      gap: 16px;
+    }
+    .header {
+      padding: 36px 32px 28px;
+    }
+    .main {
+      padding: 28px 32px 60px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .risk-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* Scroll fade in */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<div class="disclaimer">
+  Prototype for strategic scenario modeling only. Not an underwriting, credit approval, or regulatory compliance tool. For executive decision-support purposes.
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-top">
+      <div>
+        <div class="brand-tag">Hawaii Community Banking · Credit Portfolio Intelligence</div>
+        <h1>Credit Portfolio<br>Strategy Brief</h1>
+        <div class="header-sub">Scenario modeling for loan growth, credit risk, and risk-adjusted return</div>
+        <div class="market-tag">
+          <span>🌺</span> Hawaii Market Calibrated
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;padding-top:4px;">
+        <div id="decision-badge" class="decision-badge badge-optimize">
+          <span class="badge-dot"></span>
+          <span id="badge-text">OPTIMIZE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- HEADLINE METRICS -->
+    <div class="metrics-strip">
+      <div class="metric-card">
+        <div class="metric-label">5-Year NPV</div>
+        <div class="metric-value" id="metric-npv">—</div>
+        <div class="metric-delta" id="metric-npv-delta">vs. do nothing</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Loan Growth</div>
+        <div class="metric-value" id="metric-growth">—</div>
+        <div class="metric-delta delta-neutral">vs. 55% baseline</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Expected Loss</div>
+        <div class="metric-value" id="metric-loss">—</div>
+        <div class="metric-delta" id="metric-loss-delta">annualized rate</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="spacer"></div>
+  <div class="section-label">Board-Ready Executive Summary</div>
+  <div class="card fade-in">
+    <div class="card-title">Executive Assessment</div>
+    <div class="exec-summary" id="exec-summary">
+      Calculating scenario analysis…
+    </div>
+
+    <!-- PORTFOLIO HEALTH SCORE -->
+    <div class="health-score-wrap">
+      <div class="health-dial">
+        <svg width="64" height="64" viewBox="0 0 64 64">
+          <circle cx="32" cy="32" r="26" fill="none" stroke="#e2e8f0" stroke-width="6"/>
+          <circle id="health-arc" cx="32" cy="32" r="26" fill="none" stroke="#2d7a5f" stroke-width="6"
+            stroke-dasharray="163.36" stroke-dashoffset="40" stroke-linecap="round"/>
+        </svg>
+        <div class="health-dial-label">
+          <div class="health-dial-num" id="health-score-num">82</div>
+          <div class="health-dial-text">PHS</div>
+        </div>
+      </div>
+      <div class="health-info">
+        <div class="health-title">Portfolio Health Score</div>
+        <div class="health-sub" id="health-sub">Risk-adjusted quality indicator based on default rate, NIM coverage, and approval discipline.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENARIO CONTROLS -->
+  <div class="section-label">Scenario Controls</div>
+  <div class="card fade-in">
+    <div class="card-title">Live Scenario Inputs</div>
+    <div class="controls-grid">
+
+      <div class="slider-row">
+        <div class="slider-header">
+          <span class="slider-name">Approval Rate</span>
+          <span class="slider-value" id="val-approval">58%</span>
+        </div>
+        <input type="range" id="s-approval" min="40" max="85" value="58" step="1">
+        <div class="slider-range-labels"><span>40%</span><span>85%</span></div>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-header">
+          <span class="slider-name">Monthly Applications</span>
+          <span class="slider-value" id="val-apps">180</span>
+        </div>
+        <input type="range" id="s-apps" min="50" max="600" value="180" step="10">
+        <div class="slider-range-labels"><span>50</span><span>600</span></div>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-header">
+          <span class="slider-name">Average Loan Size</span>
+          <span class="slider-value" id="val-loan">$650K</span>
+        </div>
+        <input type="range" id="s-loan" min="100000" max="2000000" value="650000" step="50000">
+        <div class="slider-range-labels"><span>$100K</span><span>$2M</span></div>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-header">
+          <span class="slider-name">Expected Default Rate</span>
+          <span class="slider-value" id="val-default">1.8%</span>
+        </div>
+        <input type="range" id="s-default" min="0.5" max="8" value="1.8" step="0.1">
+        <div class="slider-range-labels"><span>0.5%</span><span>8%</span></div>
+      </div>
+
+    </div>
+
+    <!-- ADVANCED INPUTS -->
+    <div style="margin-top:12px;">
+      <div class="section-label" style="margin-bottom:8px;">Advanced Assumptions</div>
+      <div class="advanced-grid">
+        <div class="adv-field">
+          <label class="adv-label">Net Interest Margin</label>
+          <input type="number" class="adv-input" id="a-nim" value="3.85" step="0.05" min="1" max="10">
+        </div>
+        <div class="adv-field">
+          <label class="adv-label">Loss Severity %</label>
+          <input type="number" class="adv-input" id="a-severity" value="35" step="1" min="10" max="80">
+        </div>
+        <div class="adv-field">
+          <label class="adv-label">Discount Rate %</label>
+          <input type="number" class="adv-input" id="a-discount" value="9" step="0.25" min="4" max="18">
+        </div>
+        <div class="adv-field">
+          <label class="adv-label">Time Horizon (Yrs)</label>
+          <input type="number" class="adv-input" id="a-horizon" value="5" step="1" min="1" max="10">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DO NOTHING VS PROPOSED -->
+  <div class="section-label">Do Nothing vs. Proposed Scenario</div>
+  <div class="card fade-in" style="padding:0;overflow:hidden;">
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th style="padding-left:20px;padding-top:16px;padding-bottom:12px;">Scenario</th>
+            <th>Monthly Loans</th>
+            <th>Annual Net Return</th>
+            <th>5-Yr NPV</th>
+            <th style="padding-right:20px;">Expected Loss</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row-baseline">
+            <td style="padding-left:20px;">
+              <div class="scenario-tag">
+                <span class="tag-dot" style="background:#8fa3bb;"></span>
+                Do Nothing (55%)
+              </div>
+            </td>
+            <td id="cmp-base-loans">—</td>
+            <td id="cmp-base-return">—</td>
+            <td id="cmp-base-npv">—</td>
+            <td id="cmp-base-loss" style="padding-right:20px;">—</td>
+          </tr>
+          <tr class="row-proposed">
+            <td style="padding-left:20px;">
+              <div class="scenario-tag">
+                <span class="tag-dot" style="background:#2d7a5f;"></span>
+                <strong>Proposed</strong>
+              </div>
+            </td>
+            <td id="cmp-prop-loans" style="font-weight:600;">—</td>
+            <td id="cmp-prop-return" style="font-weight:600;">—</td>
+            <td id="cmp-prop-npv" style="font-weight:600;">—</td>
+            <td id="cmp-prop-loss" style="padding-right:20px;font-weight:600;">—</td>
+          </tr>
+          <tr>
+            <td style="padding-left:20px;padding-bottom:16px;">
+              <div class="scenario-tag" style="color:var(--text-muted);font-size:11px;">
+                <span class="tag-dot" style="background:var(--navy);"></span>
+                Delta
+              </div>
+            </td>
+            <td id="cmp-delta-loans" style="padding-bottom:16px;font-size:11px;color:var(--text-muted);">—</td>
+            <td id="cmp-delta-return" style="padding-bottom:16px;font-size:11px;">—</td>
+            <td id="cmp-delta-npv" style="padding-bottom:16px;font-size:11px;">—</td>
+            <td id="cmp-delta-loss" style="padding-right:20px;padding-bottom:16px;font-size:11px;">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TRADEOFF CURVE -->
+  <div class="section-label">Approval Rate vs. Risk-Adjusted Return</div>
+  <div class="card fade-in">
+    <div class="card-title">Tradeoff Curve — Hawaii Community Bank Context</div>
+    <canvas id="tradeoff-canvas" height="200"></canvas>
+    <div style="display:flex;gap:16px;margin-top:10px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);">
+        <div style="width:12px;height:4px;background:#d4820a;border-radius:2px;opacity:0.6;"></div>
+        Under-lending
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);">
+        <div style="width:12px;height:4px;background:#2d7a5f;border-radius:2px;opacity:0.7;"></div>
+        Optimal band
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);">
+        <div style="width:12px;height:4px;background:#c0392b;border-radius:2px;opacity:0.6;"></div>
+        Risk zone
+      </div>
+    </div>
+  </div>
+
+  <!-- RISK SNAPSHOT -->
+  <div class="section-label">Risk Snapshot</div>
+  <div class="card fade-in">
+    <div class="card-title">Stress Testing & Downside Analysis</div>
+    <div class="risk-grid">
+      <div class="risk-cell">
+        <div class="risk-cell-label">Base NPV</div>
+        <div class="risk-cell-value" id="risk-base-npv">—</div>
+        <div class="risk-cell-sub">Current assumptions</div>
+      </div>
+      <div class="risk-cell">
+        <div class="risk-cell-label">Stress NPV</div>
+        <div class="risk-cell-value" id="risk-stress-npv">—</div>
+        <div class="risk-cell-sub">+25% default rate</div>
+      </div>
+      <div class="risk-cell">
+        <div class="risk-cell-label">Break-Even Default</div>
+        <div class="risk-cell-value" id="risk-breakeven">—</div>
+        <div class="risk-cell-sub">Max tolerable rate</div>
+      </div>
+      <div class="risk-cell">
+        <div class="risk-cell-label">NCO Coverage</div>
+        <div class="risk-cell-value" id="risk-coverage">—</div>
+        <div class="risk-cell-sub">NIM vs. expected loss</div>
+      </div>
+    </div>
+    <div class="risk-status" id="risk-status-box">
+      <span>●</span>
+      <span id="risk-status-text">Evaluating…</span>
+    </div>
+  </div>
+
+  <!-- PRIMARY LEVER -->
+  <div class="section-label">Sensitivity Analysis</div>
+  <div class="card fade-in">
+    <div class="card-title">Primary Lever — Impact Analysis</div>
+    <div class="lever-bars" id="lever-bars">
+      <div class="lever-row">
+        <div class="lever-name">Approval Rate</div>
+        <div class="lever-bar-wrap">
+          <div class="lever-bar-fill" id="lever-bar-approval" style="background:var(--navy);width:70%;"></div>
+        </div>
+        <div class="lever-pct" id="lever-pct-approval">70%</div>
+      </div>
+      <div class="lever-row">
+        <div class="lever-name">Default Rate</div>
+        <div class="lever-bar-wrap">
+          <div class="lever-bar-fill" id="lever-bar-default" style="background:var(--red);width:20%;"></div>
+        </div>
+        <div class="lever-pct" id="lever-pct-default">20%</div>
+      </div>
+      <div class="lever-row">
+        <div class="lever-name">Loan Volume</div>
+        <div class="lever-bar-wrap">
+          <div class="lever-bar-fill" id="lever-bar-volume" style="background:var(--slate);width:10%;"></div>
+        </div>
+        <div class="lever-pct" id="lever-pct-volume">10%</div>
+      </div>
+    </div>
+    <div class="lever-insight" id="lever-insight">
+      Calculating sensitivity…
+    </div>
+  </div>
+
+  <!-- EXPORT -->
+  <div class="section-label">Credit Committee Brief</div>
+  <div class="card fade-in">
+    <div class="card-title">Export Executive Summary</div>
+    <p style="font-size:12.5px;color:var(--text-secondary);margin-bottom:14px;line-height:1.55;">
+      Generate a formatted credit committee brief based on current scenario inputs. Suitable for board presentation or risk committee review.
+    </p>
+    <button class="export-btn" onclick="generateExport()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14,2 14,8 20,8"></polyline>
+        <line x1="16" y1="13" x2="8" y2="13"></line>
+        <line x1="16" y1="17" x2="8" y2="17"></line>
+        <polyline points="10,9 9,9 8,9"></polyline>
+      </svg>
+      Generate Credit Committee Brief
+    </button>
+    <div class="export-output" id="export-output">
+      <button class="export-copy-btn" onclick="copyExport()">Copy</button>
+      <div id="export-text"></div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<div class="footer">
+  <strong>Credit Portfolio Strategy Brief</strong><br>
+  Prepared by Jamie Iha · Built as a strategic decision-support prototype to demonstrate lending tradeoff analysis,<br>
+  scenario modeling, and board-level credit communication for Hawaii community banking.
+</div>
+
+<!-- TRADEOFF CHART + LOGIC -->
+<script>
+// ─── STATE ────────────────────────────────────────────
+const state = {
+  approval: 0.58,
+  apps: 180,
+  loanSize: 650000,
+  defaultRate: 0.018,
+  nim: 0.0385,
+  severity: 0.35,
+  discount: 0.09,
+  horizon: 5
+};
+
+const BASELINE_APPROVAL = 0.55;
+
+// ─── FORMATTERS ───────────────────────────────────────
+function fmtCurrency(n) {
+  const abs = Math.abs(n);
+  const sign = n < 0 ? '-' : '';
+  if (abs >= 1e9) return sign + '$' + (abs/1e9).toFixed(2) + 'B';
+  if (abs >= 1e6) return sign + '$' + (abs/1e6).toFixed(2) + 'M';
+  if (abs >= 1e3) return sign + '$' + (abs/1e3).toFixed(1) + 'K';
+  return sign + '$' + abs.toFixed(0);
+}
+function fmtPct(n, decimals=1) {
+  return (n*100).toFixed(decimals) + '%';
+}
+function fmtDelta(n) {
+  if (n === 0) return '—';
+  const sign = n > 0 ? '+' : '';
+  return sign + fmtCurrency(n);
+}
+
+// ─── CORE CALCULATIONS ────────────────────────────────
+function calcScenario(approvalRate) {
+  const loansBooked = state.apps * approvalRate;
+  const annualLoanVolume = loansBooked * state.loanSize * 12;
+  const annualInterestIncome = annualLoanVolume * state.nim;
+  const annualExpectedLoss = annualLoanVolume * state.defaultRate * state.severity;
+  const annualNetReturn = annualInterestIncome - annualExpectedLoss;
+  let npv = 0;
+  for (let y = 1; y <= state.horizon; y++) {
+    npv += annualNetReturn / Math.pow(1 + state.discount, y);
+  }
+  const riskAdjReturn = annualLoanVolume > 0 ? annualNetReturn / annualLoanVolume : 0;
+  return { loansBooked, annualLoanVolume, annualInterestIncome, annualExpectedLoss, annualNetReturn, npv, riskAdjReturn };
+}
+
+function calcStress(approvalRate, stressMultiplier = 1.25) {
+  const loansBooked = state.apps * approvalRate;
+  const annualLoanVolume = loansBooked * state.loanSize * 12;
+  const annualInterestIncome = annualLoanVolume * state.nim;
+  const stressDefault = state.defaultRate * stressMultiplier;
+  const annualExpectedLoss = annualLoanVolume * stressDefault * state.severity;
+  const annualNetReturn = annualInterestIncome - annualExpectedLoss;
+  let npv = 0;
+  for (let y = 1; y <= state.horizon; y++) {
+    npv += annualNetReturn / Math.pow(1 + state.discount, y);
+  }
+  return { npv, annualNetReturn };
+}
+
+function calcBreakeven() {
+  // NIM = defaultRate * severity → defaultRate = NIM / severity
+  return state.nim / state.severity;
+}
+
+function getDecision(s) {
+  if (state.defaultRate > 0.055 || s.annualNetReturn < 0) return 'RISKY';
+  if (state.approval < 0.55 && s.riskAdjReturn > 0) return 'CONSERVATIVE';
+  if (s.riskAdjReturn > 0 && state.defaultRate <= 0.045) return 'OPTIMIZE';
+  return 'MONITOR';
+}
+
+function getHealthScore(s, decision) {
+  // 0–100 score based on: NIM coverage, default rate vs breakeven, approval discipline
+  const nimCoverage = Math.min(1, s.annualInterestIncome / (s.annualExpectedLoss + 1)) ;
+  const defaultScore = Math.max(0, 1 - state.defaultRate / 0.06);
+  const approvalScore = state.approval >= 0.5 && state.approval <= 0.72 ? 1 : state.approval > 0.72 ? Math.max(0, 1-(state.approval-0.72)/0.15) : Math.max(0, state.approval/0.5);
+  const raw = (nimCoverage * 0.45 + defaultScore * 0.35 + approvalScore * 0.2) * 100;
+  return Math.round(Math.min(100, Math.max(0, raw)));
+}
+
+// ─── UPDATE DOM ───────────────────────────────────────
+function update() {
+  const curr = calcScenario(state.approval);
+  const base = calcScenario(BASELINE_APPROVAL);
+  const stress = calcStress(state.approval);
+  const breakeven = calcBreakeven();
+  const decision = getDecision(curr);
+  const loanGrowth = base.loansBooked > 0 ? (curr.loansBooked - base.loansBooked) / base.loansBooked : 0;
+  const healthScore = getHealthScore(curr, decision);
+
+  // ── HEADLINE METRICS
+  animateEl('metric-npv', fmtCurrency(curr.npv));
+  const npvDelta = curr.npv - base.npv;
+  const npvDeltaEl = document.getElementById('metric-npv-delta');
+  npvDeltaEl.textContent = fmtDelta(npvDelta) + ' vs. do nothing';
+  npvDeltaEl.className = 'metric-delta ' + (npvDelta >= 0 ? 'delta-up' : 'delta-down');
+
+  animateEl('metric-growth', (loanGrowth >= 0 ? '+' : '') + fmtPct(loanGrowth));
+  document.getElementById('metric-growth').className = 'metric-value ' + (loanGrowth >= 0 ? 'val-green' : 'val-red');
+
+  animateEl('metric-loss', fmtPct(state.defaultRate));
+  document.getElementById('metric-loss').className = 'metric-value ' + (state.defaultRate > 0.045 ? 'val-red' : state.defaultRate > 0.03 ? 'val-amber' : 'val-green');
+
+  // ── DECISION BADGE
+  const badge = document.getElementById('decision-badge');
+  badge.className = 'decision-badge ' + (
+    decision === 'OPTIMIZE' ? 'badge-optimize' :
+    decision === 'CONSERVATIVE' ? 'badge-conservative' :
+    decision === 'RISKY' ? 'badge-risky' : 'badge-monitor'
+  );
+  const labels = {
+    'OPTIMIZE': 'OPTIMIZE: Expand within risk tolerance',
+    'CONSERVATIVE': 'CONSERVATIVE: Leaving revenue on the table',
+    'RISKY': 'RISKY: Losses outweigh incremental return',
+    'MONITOR': 'MONITOR: Within tolerance, watch closely'
+  };
+  document.getElementById('badge-text').textContent = labels[decision];
+
+  // ── EXEC SUMMARY
+  const nimCovRatio = curr.annualInterestIncome > 0 ? curr.annualInterestIncome / curr.annualExpectedLoss : 0;
+  let summary = '';
+  if (decision === 'OPTIMIZE') {
+    summary = `At current scenario assumptions, the proposed approval rate of ${fmtPct(state.approval)} supports a risk-adjusted return of ${fmtPct(curr.riskAdjReturn, 2)} on deployed capital. Expected losses of ${fmtPct(state.defaultRate)} remain comfortably below the break-even threshold of ${fmtPct(breakeven)}, with NIM providing ${nimCovRatio.toFixed(1)}x coverage over anticipated charge-offs. The Hawaii collateral environment supports conservative loss severity assumptions. The recommended action is to sustain or modestly expand approval capacity without loosening core credit standards — capturing incremental profitable volume while preserving portfolio quality discipline.`;
+  } else if (decision === 'CONSERVATIVE') {
+    summary = `The current approval rate of ${fmtPct(state.approval)} is leaving measurable risk-adjusted return on the table. NIM of ${fmtPct(state.nim, 2)} provides ${nimCovRatio.toFixed(1)}x coverage over projected losses at the current default assumption of ${fmtPct(state.defaultRate)}, suggesting that marginal loan applications are likely profitable at the margin. The 5-year NPV differential between this scenario and the 55% baseline is ${fmtDelta(npvDelta)}. A structured review of approval criteria may identify creditworthy borrowers currently excluded without commensurate risk reduction.`;
+  } else if (decision === 'RISKY') {
+    summary = `Current scenario conditions present material risk. ${state.defaultRate > 0.055 ? `The expected default rate of ${fmtPct(state.defaultRate)} exceeds the 5.5% risk threshold` : 'Net return has turned negative'}, indicating that incremental loan growth is value-destructive at current credit quality assumptions. Stress-case NPV of ${fmtCurrency(stress.npv)} reflects further downside under a deteriorating credit environment. The recommended action is to tighten approval standards, reduce exposure concentration, and prioritize portfolio quality over volume growth until default expectations normalize.`;
+  } else {
+    summary = `Current portfolio assumptions place the scenario within an acceptable but watchable range. The approval rate of ${fmtPct(state.approval)} and expected default of ${fmtPct(state.defaultRate)} yield a risk-adjusted return of ${fmtPct(curr.riskAdjReturn, 2)}. Close monitoring of NCO trends, CRE concentration, and NIM compression is recommended before expanding approval capacity further in the Hawaii market.`;
+  }
+  document.getElementById('exec-summary').textContent = summary;
+
+  // ── HEALTH SCORE
+  const circumference = 2 * Math.PI * 26; // ≈ 163.36
+  const offset = circumference * (1 - healthScore / 100);
+  const arc = document.getElementById('health-arc');
+  arc.style.strokeDashoffset = offset;
+  arc.style.stroke = healthScore >= 75 ? '#2d7a5f' : healthScore >= 50 ? '#d4820a' : '#c0392b';
+  document.getElementById('health-score-num').textContent = healthScore;
+  document.getElementById('health-sub').textContent =
+    healthScore >= 80 ? 'Portfolio quality is strong. NIM well covers expected losses with disciplined approval standards.' :
+    healthScore >= 60 ? 'Portfolio health is acceptable. Monitor default trends and NIM compression closely.' :
+    'Portfolio health under pressure. Default rate and/or approval criteria require review.';
+
+  // ── COMPARISON TABLE
+  setText('cmp-base-loans', Math.round(base.loansBooked) + '/mo');
+  setText('cmp-base-return', fmtCurrency(base.annualNetReturn));
+  setText('cmp-base-npv', fmtCurrency(base.npv));
+  setText('cmp-base-loss', fmtPct(state.defaultRate));
+
+  const propReturnEl = document.getElementById('cmp-prop-return');
+  setText('cmp-prop-loans', Math.round(curr.loansBooked) + '/mo');
+  propReturnEl.textContent = fmtCurrency(curr.annualNetReturn);
+  propReturnEl.style.color = curr.annualNetReturn >= base.annualNetReturn ? 'var(--green)' : 'var(--red)';
+  setText('cmp-prop-npv', fmtCurrency(curr.npv));
+  document.getElementById('cmp-prop-npv').style.color = curr.npv >= base.npv ? 'var(--green)' : 'var(--red)';
+  setText('cmp-prop-loss', fmtPct(state.defaultRate * state.severity * 100 / 100));
+
+  const deltaLoans = Math.round(curr.loansBooked - base.loansBooked);
+  const deltaReturn = curr.annualNetReturn - base.annualNetReturn;
+  const deltaNPV = curr.npv - base.npv;
+  const deltaReturnEl = document.getElementById('cmp-delta-return');
+  const deltaNPVEl = document.getElementById('cmp-delta-npv');
+  setText('cmp-delta-loans', (deltaLoans >= 0 ? '+' : '') + deltaLoans + '/mo');
+  deltaReturnEl.textContent = fmtDelta(deltaReturn) + '/yr';
+  deltaReturnEl.className = deltaReturn >= 0 ? 'val-green' : 'val-red';
+  deltaNPVEl.textContent = fmtDelta(deltaNPV);
+  deltaNPVEl.className = deltaNPV >= 0 ? 'val-green' : 'val-red';
+  setText('cmp-delta-loss', '—');
+
+  // ── RISK SNAPSHOT
+  const nimCoverage = curr.annualExpectedLoss > 0 ? curr.annualInterestIncome / curr.annualExpectedLoss : 999;
+  animateEl('risk-base-npv', fmtCurrency(curr.npv));
+  animateEl('risk-stress-npv', fmtCurrency(stress.npv));
+  document.getElementById('risk-stress-npv').style.color = stress.npv < curr.npv ? 'var(--amber)' : '';
+  animateEl('risk-breakeven', fmtPct(breakeven));
+  animateEl('risk-coverage', nimCoverage.toFixed(1) + 'x');
+  document.getElementById('risk-coverage').style.color = nimCoverage >= 3 ? 'var(--green)' : nimCoverage >= 1.5 ? 'var(--amber)' : 'var(--red)';
+
+  const riskBox = document.getElementById('risk-status-box');
+  const riskText = document.getElementById('risk-status-text');
+  const riskOk = state.defaultRate < breakeven * 0.8 && stress.npv > 0;
+  riskBox.className = 'risk-status ' + (riskOk ? 'risk-ok' : 'risk-warn');
+  riskText.textContent = riskOk
+    ? 'Risk remains acceptable — NIM provides adequate buffer above expected losses under base and stress scenarios.'
+    : 'Risk approaching tolerance — Stress-case NPV under pressure. Review approval criteria and default rate assumptions.';
+
+  // ── LEVER SENSITIVITY
+  const baseVal = curr.npv;
+  const approvalSens = Math.abs(calcScenario(state.approval * 1.10).npv - baseVal);
+  const defaultSens = Math.abs(calcScenario(state.approval).npv - (() => {
+    const saved = state.defaultRate;
+    state.defaultRate *= 1.10;
+    const r = calcScenario(state.approval).npv;
+    state.defaultRate = saved;
+    return r;
+  })());
+  const volumeSens = Math.abs((() => {
+    const saved = state.apps;
+    state.apps = Math.round(state.apps * 1.10);
+    const r = calcScenario(state.approval).npv;
+    state.apps = saved;
+    return r;
+  })() - baseVal);
+
+  const total = approvalSens + defaultSens + volumeSens || 1;
+  const ap = Math.round(approvalSens / total * 100);
+  const dp = Math.round(defaultSens / total * 100);
+  const vp = Math.round(volumeSens / total * 100);
+  setBar('lever-bar-approval', 'lever-pct-approval', ap);
+  setBar('lever-bar-default', 'lever-pct-default', dp);
+  setBar('lever-bar-volume', 'lever-pct-volume', vp);
+
+  const primaryLever = ap >= dp && ap >= vp ? 'approval' : dp >= ap && dp >= vp ? 'default' : 'volume';
+  const insights = {
+    approval: `Approval rate is the highest-impact lever — a 10% change in approval rate drives ${fmtPct(ap/100)} of total NPV sensitivity. There may be profitable borrowers excluded by current criteria worth reviewing in the Hawaii market.`,
+    default: `Credit quality is the dominant constraint — a 10% shift in default rate drives ${fmtPct(dp/100)} of total NPV sensitivity. Growth expansion should wait until underwriting quality and default trend visibility improves.`,
+    volume: `Application volume is the primary driver — pipeline depth is the binding constraint at ${fmtPct(vp/100)} of total sensitivity. Marketing and origination channel investment would generate the highest marginal return.`
+  };
+  document.getElementById('lever-insight').textContent = insights[primaryLever];
+
+  // ── TRADEOFF CHART
+  drawTradeoff(curr.riskAdjReturn);
+}
+
+// ─── HELPERS ─────────────────────────────────────────
+function setText(id, val) {
+  document.getElementById(id).textContent = val;
+}
+
+function animateEl(id, val) {
+  const el = document.getElementById(id);
+  el.textContent = val;
+  el.classList.remove('flash');
+  void el.offsetWidth;
+  el.classList.add('flash');
+}
+
+function setBar(barId, pctId, pct) {
+  document.getElementById(barId).style.width = pct + '%';
+  document.getElementById(pctId).textContent = pct + '%';
+}
+
+// ─── TRADEOFF CANVAS ──────────────────────────────────
+function drawTradeoff(currentRAR) {
+  const canvas = document.getElementById('tradeoff-canvas');
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.clientWidth;
+  const H = 200;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const pad = { top: 16, right: 16, bottom: 36, left: 52 };
+  const cW = W - pad.left - pad.right;
+  const cH = H - pad.top - pad.bottom;
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Generate curve data: RAR = f(approvalRate)
+  const approvals = [];
+  for (let a = 0.38; a <= 0.88; a += 0.01) approvals.push(a);
+
+  const savedApproval = state.approval;
+  const rars = approvals.map(a => {
+    const lo = a * state.apps;
+    const vol = lo * state.loanSize * 12;
+    const income = vol * state.nim;
+    const loss = vol * state.defaultRate * state.severity;
+    const net = income - loss;
+    // Quadratic penalty for very high approval (quality degradation)
+    const qualityPenalty = a > 0.70 ? Math.pow((a - 0.70) / 0.15, 2) * 0.4 * net : 0;
+    return vol > 0 ? (net - qualityPenalty) / vol : 0;
+  });
+
+  const rarMax = Math.max(...rars);
+  const rarMin = Math.min(0, Math.min(...rars));
+  const rarRange = rarMax - rarMin || 0.01;
+
+  function toX(a) { return pad.left + ((a - 0.38) / 0.50) * cW; }
+  function toY(r) { return pad.top + cH - ((r - rarMin) / rarRange) * cH; }
+
+  // Zones
+  const zoneColors = [
+    { from: 0.38, to: 0.52, color: 'rgba(212,130,10,0.08)', label: 'Under-lending' },
+    { from: 0.52, to: 0.74, color: 'rgba(45,122,95,0.10)', label: 'Optimal' },
+    { from: 0.74, to: 0.88, color: 'rgba(192,57,43,0.08)', label: 'Risk zone' },
+  ];
+
+  zoneColors.forEach(z => {
+    ctx.fillStyle = z.color;
+    ctx.fillRect(toX(z.from), pad.top, toX(z.to) - toX(z.from), cH);
+  });
+
+  // Grid lines
+  ctx.strokeStyle = '#e2e8f0';
+  ctx.lineWidth = 1;
+  const ySteps = 4;
+  for (let i = 0; i <= ySteps; i++) {
+    const r = rarMin + (rarRange / ySteps) * i;
+    const y = toY(r);
+    ctx.beginPath();
+    ctx.moveTo(pad.left, y);
+    ctx.lineTo(pad.left + cW, y);
+    ctx.stroke();
+    ctx.fillStyle = '#8fa3bb';
+    ctx.font = '500 9px DM Mono, monospace';
+    ctx.textAlign = 'right';
+    ctx.fillText(fmtPct(r, 1), pad.left - 6, y + 3);
+  }
+
+  // Zero line
+  if (rarMin < 0) {
+    const zy = toY(0);
+    ctx.strokeStyle = '#c8d5e3';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([4, 3]);
+    ctx.beginPath();
+    ctx.moveTo(pad.left, zy);
+    ctx.lineTo(pad.left + cW, zy);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // Curve
+  ctx.beginPath();
+  approvals.forEach((a, i) => {
+    const x = toX(a), y = toY(rars[i]);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.strokeStyle = 'rgba(26,53,88,0.7)';
+  ctx.lineWidth = 2.5;
+  ctx.lineJoin = 'round';
+  ctx.stroke();
+
+  // Fill under curve
+  ctx.lineTo(toX(0.88), pad.top + cH);
+  ctx.lineTo(toX(0.38), pad.top + cH);
+  ctx.closePath();
+  const grad = ctx.createLinearGradient(0, pad.top, 0, pad.top + cH);
+  grad.addColorStop(0, 'rgba(26,53,88,0.12)');
+  grad.addColorStop(1, 'rgba(26,53,88,0.01)');
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Current position marker
+  const cx = toX(state.approval);
+  const cy = toY(currentRAR);
+  ctx.beginPath();
+  ctx.arc(cx, cy, 6, 0, Math.PI * 2);
+  ctx.fillStyle = '#0d2240';
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(cx, cy, 4, 0, Math.PI * 2);
+  ctx.fillStyle = '#ffffff';
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(cx, cy, 2, 0, Math.PI * 2);
+  ctx.fillStyle = '#0d2240';
+  ctx.fill();
+
+  // Label
+  ctx.fillStyle = '#0d2240';
+  ctx.font = '600 10px DM Sans, sans-serif';
+  ctx.textAlign = 'center';
+  const labelY = cy > pad.top + 24 ? cy - 12 : cy + 20;
+  ctx.fillText('Current: ' + fmtPct(state.approval), cx, labelY);
+
+  // X axis labels
+  ctx.fillStyle = '#8fa3bb';
+  ctx.font = '500 9px DM Mono, monospace';
+  ctx.textAlign = 'center';
+  [0.40, 0.50, 0.60, 0.70, 0.80].forEach(a => {
+    ctx.fillText(Math.round(a*100) + '%', toX(a), H - 8);
+  });
+
+  ctx.fillStyle = '#8fa3bb';
+  ctx.font = '500 9px DM Mono, monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText('Approval Rate →', pad.left + cW/2, H - 2);
+}
+
+// ─── EXPORT ───────────────────────────────────────────
+function generateExport() {
+  const curr = calcScenario(state.approval);
+  const base = calcScenario(BASELINE_APPROVAL);
+  const stress = calcStress(state.approval);
+  const breakeven = calcBreakeven();
+  const decision = getDecision(curr);
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+
+  const text = `CREDIT COMMITTEE BRIEF
+═══════════════════════════════════════════
+American Savings Bank — Hawaii Market Scenario
+Prepared by: Jamie Iha
+Date: ${dateStr}
+═══════════════════════════════════════════
+
+RECOMMENDATION
+──────────────
+${decision === 'OPTIMIZE' ? 'Optimize approval capacity within the current risk band. The proposed approval rate of ' + fmtPct(state.approval) + ' supports positive risk-adjusted return with default rates well below break-even threshold.' :
+  decision === 'CONSERVATIVE' ? 'Review and consider expanding approval criteria. Current approval rate of ' + fmtPct(state.approval) + ' suggests potentially profitable borrowers may be excluded without commensurate risk reduction.' :
+  decision === 'RISKY' ? 'Tighten credit standards before expanding loan volume. Current default rate assumption of ' + fmtPct(state.defaultRate) + ' exceeds safe operating parameters.' :
+  'Maintain current posture with active monitoring. Scenario is within tolerance but warrants close oversight of default trends and NIM compression.'}
+
+FINANCIAL IMPACT
+────────────────
+• Projected 5-Year NPV (Base Case):   ${fmtCurrency(curr.npv)}
+• Projected 5-Year NPV (Stress Case): ${fmtCurrency(stress.npv)}
+• Annual Net Return:                  ${fmtCurrency(curr.annualNetReturn)}
+• Delta vs. Do Nothing (5-Yr NPV):   ${fmtDelta(curr.npv - base.npv)}
+
+RISK ASSESSMENT
+───────────────
+• Expected Default Rate:     ${fmtPct(state.defaultRate)}
+• Break-Even Default Rate:   ${fmtPct(breakeven)}
+• Loss Severity Assumption:  ${fmtPct(state.severity)}
+• NCO Coverage (NIM/Loss):   ${(curr.annualInterestIncome / (curr.annualExpectedLoss || 1)).toFixed(1)}x
+• Stress NPV (+ 25% default): ${fmtCurrency(stress.npv)}
+
+KEY ASSUMPTIONS
+───────────────
+• Market Context:         Hawaii Community Bank
+• Monthly Applications:   ${state.apps}
+• Approval Rate:          ${fmtPct(state.approval)}
+• Average Loan Size:      ${fmtCurrency(state.loanSize)}
+• Net Interest Margin:    ${fmtPct(state.nim, 2)}
+• Discount Rate:          ${fmtPct(state.discount)}
+• Time Horizon:           ${state.horizon} years
+
+SUGGESTED NEXT STEP
+───────────────────
+${decision === 'OPTIMIZE' ? 'Commission a segmented review of recently declined applications to identify creditworthy borrowers who may be excluded by overly conservative cut-offs. Validate default assumptions against Hawaii-specific NCO history.' :
+  decision === 'CONSERVATIVE' ? 'Conduct a vintage analysis of recent approvals vs. declines to quantify the credit quality of marginal applicants. Evaluate whether approval criteria reflect current Hawaii collateral values and market conditions.' :
+  decision === 'RISKY' ? 'Pause expansion initiatives. Conduct a portfolio stress test against a 35% HPI decline scenario. Identify concentration risks and implement tighter underwriting overlays before next credit cycle.' :
+  'Implement enhanced monitoring of 30/60/90-day delinquency trends. Review NIM assumptions for rate compression risk. Establish portfolio review cadence at next credit committee meeting.'}
+
+───────────────────────────────────────────
+DISCLAIMER: Strategic scenario model only. Not an underwriting, credit approval, or regulatory compliance output.
+Prototype developed by Jamie Iha to demonstrate credit portfolio strategy and scenario analysis capabilities.`;
+
+  document.getElementById('export-text').textContent = text;
+  const out = document.getElementById('export-output');
+  out.classList.add('visible');
+  out.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function copyExport() {
+  const text = document.getElementById('export-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.export-copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 2000);
+  });
+}
+
+// ─── SLIDER LISTENERS ─────────────────────────────────
+function bindSlider(id, valId, key, formatter, transform) {
+  const el = document.getElementById(id);
+  const valEl = document.getElementById(valId);
+  el.addEventListener('input', () => {
+    const raw = parseFloat(el.value);
+    state[key] = transform ? transform(raw) : raw;
+    valEl.textContent = formatter(raw);
+    update();
+  });
+}
+
+bindSlider('s-approval', 'val-approval', 'approval', v => v + '%', v => v/100);
+bindSlider('s-apps', 'val-apps', 'apps', v => Math.round(v), null);
+bindSlider('s-loan', 'val-loan', 'loanSize', v => {
+  if (v >= 1000000) return '$' + (v/1000000).toFixed(1) + 'M';
+  return '$' + (v/1000).toFixed(0) + 'K';
+}, null);
+bindSlider('s-default', 'val-default', 'defaultRate', v => v + '%', v => v/100);
+
+['a-nim','a-severity','a-discount','a-horizon'].forEach(id => {
+  document.getElementById(id).addEventListener('input', e => {
+    const v = parseFloat(e.target.value) || 0;
+    if (id === 'a-nim') state.nim = v/100;
+    if (id === 'a-severity') state.severity = v/100;
+    if (id === 'a-discount') state.discount = v/100;
+    if (id === 'a-horizon') state.horizon = Math.max(1, Math.round(v));
+    update();
+  });
+});
+
+// ─── SCROLL ANIMATION ─────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ─── RESIZE ───────────────────────────────────────────
+window.addEventListener('resize', () => {
+  const curr = calcScenario(state.approval);
+  drawTradeoff(curr.riskAdjReturn);
+});
+
+// ─── INIT ─────────────────────────────────────────────
+update();
+</script>
+</body>
+</html>
