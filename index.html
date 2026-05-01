@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commercial Credit Portfolio Strategy Brief — Hawaii Market</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d2240; --navy-mid: #1a3558; --navy-light: #2a4a72;
+    --slate: #4a6080; --slate-light: #8fa3bb;
+    --green: #2d7a5f; --green-pale: #e8f5f0;
+    --red: #c0392b; --red-pale: #fdf0ee;
+    --amber: #d4820a; --amber-pale: #fef7e8;
+    --off-white: #f7f8fa; --white: #ffffff;
+    --border: #e2e8f0; --border-dark: #c8d5e3;
+    --text-primary: #0d2240; --text-secondary: #4a6080; --text-muted: #8fa3bb;
+    --card-shadow: 0 1px 3px rgba(13,34,64,0.06), 0 4px 16px rgba(13,34,64,0.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+  body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--text-primary);line-height:1.6;font-size:15px}
+  .disclaimer{background:var(--navy);color:rgba(255,255,255,0.5);text-align:center;font-size:10px;padding:7px 16px;letter-spacing:0.02em;font-family:'DM Mono',monospace}
+  .header{background:var(--white);border-bottom:1px solid var(--border);padding:28px 24px 24px;position:relative;overflow:hidden}
+  .header::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--navy),var(--navy-light),var(--green))}
+  .header-inner{max-width:960px;margin:0 auto}
+  .header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .brand-tag{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px}
+  .header h1{font-family:'Playfair Display',serif;font-size:clamp(22px,5vw,34px);font-weight:700;color:var(--navy);line-height:1.15;letter-spacing:-0.02em}
+  .header-sub{font-size:13px;color:var(--text-secondary);margin-top:4px}
+  .market-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(13,34,64,0.06);border:1px solid var(--border-dark);border-radius:4px;padding:4px 10px;font-size:10px;font-family:'DM Mono',monospace;color:var(--navy);font-weight:500;letter-spacing:0.06em;margin-top:10px;text-transform:uppercase}
+  .decision-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:4px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;font-family:'DM Mono',monospace;white-space:nowrap;transition:all 0.35s ease;margin-top:8px}
+  .badge-optimize{background:var(--green-pale);color:var(--green);border:1px solid rgba(45,122,95,0.2)}
+  .badge-conservative{background:var(--amber-pale);color:var(--amber);border:1px solid rgba(212,130,10,0.2)}
+  .badge-risky{background:var(--red-pale);color:var(--red);border:1px solid rgba(192,57,43,0.2)}
+  .badge-monitor{background:#eef2f7;color:var(--slate);border:1px solid var(--border-dark)}
+  .badge-dot{width:7px;height:7px;border-radius:50%;display:inline-block;animation:pulse 2s infinite}
+  .badge-optimize .badge-dot{background:var(--green)}.badge-conservative .badge-dot{background:var(--amber)}.badge-risky .badge-dot{background:var(--red)}.badge-monitor .badge-dot{background:var(--slate)}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
+  .metrics-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+  .metric-card{background:var(--off-white);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
+  .metric-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-family:'DM Mono',monospace;margin-bottom:6px}
+  .metric-value{font-size:clamp(18px,4vw,26px);font-weight:700;color:var(--navy);font-family:'Playfair Display',serif;line-height:1;transition:all .3s ease}
+  .metric-delta{font-size:11px;margin-top:4px;font-weight:500;font-family:'DM Mono',monospace}
+  .delta-up{color:var(--green)}.delta-down{color:var(--red)}.delta-neutral{color:var(--text-muted)}
+  .main{max-width:960px;margin:0 auto;padding:20px 16px 40px}
+  .section-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+  .card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:20px;box-shadow:var(--card-shadow);margin-bottom:16px}
+  .card-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--navy);margin-bottom:10px}
+  .exec-summary{font-size:14px;line-height:1.75;color:var(--text-secondary);border-left:3px solid var(--navy);padding-left:16px;transition:all .4s ease}
+  .health-score-wrap{display:flex;align-items:center;gap:16px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+  .health-dial{position:relative;width:64px;height:64px;flex-shrink:0}
+  .health-dial svg{transform:rotate(-90deg)}
+  .health-dial-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .health-dial-num{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--navy);line-height:1}
+  .health-dial-text{font-size:8px;color:var(--text-muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.05em}
+  .health-info{flex:1}.health-title{font-size:12px;font-weight:600;color:var(--navy);margin-bottom:3px}
+  .health-sub{font-size:11.5px;color:var(--text-secondary);line-height:1.5}
+  .controls-grid{display:grid;grid-template-columns:1fr;gap:20px}
+  .slider-row{display:flex;flex-direction:column;gap:6px}
+  .slider-header{display:flex;justify-content:space-between;align-items:baseline}
+  .slider-name{font-size:12px;font-weight:600;color:var(--text-primary)}
+  .slider-value{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--navy);background:var(--off-white);padding:2px 8px;border-radius:4px;border:1px solid var(--border);min-width:72px;text-align:right}
+  input[type=range]{-webkit-appearance:none;width:100%;height:4px;border-radius:2px;background:var(--border);outline:none;cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--navy);border:2px solid var(--white);box-shadow:0 1px 4px rgba(13,34,64,.25);cursor:pointer;transition:transform .15s ease}
+  input[type=range]::-webkit-slider-thumb:active{transform:scale(1.2)}
+  .slider-range-labels{display:flex;justify-content:space-between;font-size:9.5px;color:var(--text-muted);font-family:'DM Mono',monospace}
+  .advanced-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+  .adv-field{display:flex;flex-direction:column;gap:4px}
+  .adv-label{font-size:10px;font-weight:600;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;font-family:'DM Mono',monospace}
+  .adv-input{font-family:'DM Mono',monospace;font-size:13px;padding:7px 10px;border:1px solid var(--border);border-radius:6px;background:var(--off-white);color:var(--navy);width:100%;outline:none}
+  .adv-input:focus{border-color:var(--navy-light);background:var(--white)}
+  .source-note{font-size:10px;font-family:'DM Mono',monospace;color:var(--text-muted);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);line-height:1.7}
+  .source-note a{color:var(--slate);text-decoration:underline}
+  .compare-table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
+  .compare-table th{font-family:'DM Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);padding:0 12px 10px;text-align:left;border-bottom:1px solid var(--border)}
+  .compare-table th:not(:first-child){text-align:right}
+  .compare-table td{padding:12px;border-bottom:1px solid var(--border);vertical-align:middle}
+  .compare-table td:not(:first-child){text-align:right;font-family:'DM Mono',monospace;font-size:13px}
+  .compare-table tr:last-child td{border-bottom:none}
+  .row-baseline td{background:var(--off-white)}.row-proposed td{background:rgba(45,122,95,.04)}
+  .scenario-tag{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:13px}
+  .tag-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  #tradeoff-canvas{width:100%;height:200px;border-radius:6px}
+  .risk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .risk-cell{background:var(--off-white);border:1px solid var(--border);border-radius:8px;padding:14px}
+  .risk-cell-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);font-family:'DM Mono',monospace;margin-bottom:6px}
+  .risk-cell-value{font-size:18px;font-weight:700;font-family:'Playfair Display',serif;color:var(--navy);line-height:1;transition:all .3s ease}
+  .risk-cell-sub{font-size:11px;color:var(--text-secondary);margin-top:4px}
+  .risk-status{margin-top:12px;padding:10px 14px;border-radius:6px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:8px;transition:all .3s ease}
+  .risk-ok{background:var(--green-pale);color:var(--green);border:1px solid rgba(45,122,95,.2)}
+  .risk-warn{background:var(--red-pale);color:var(--red);border:1px solid rgba(192,57,43,.2)}
+  .lever-bars{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+  .lever-row{display:flex;align-items:center;gap:10px}
+  .lever-name{font-size:11px;font-weight:600;color:var(--text-secondary);width:90px;flex-shrink:0}
+  .lever-bar-wrap{flex:1;background:var(--border);border-radius:3px;height:6px;overflow:hidden}
+  .lever-bar-fill{height:100%;border-radius:3px;transition:width .5s ease}
+  .lever-pct{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);width:36px;text-align:right;flex-shrink:0}
+  .lever-insight{margin-top:12px;padding:10px 14px;background:var(--off-white);border-left:3px solid var(--navy);border-radius:0 6px 6px 0;font-size:12.5px;color:var(--text-secondary);line-height:1.55}
+  .export-btn{display:flex;align-items:center;gap:10px;background:var(--navy);color:var(--white);border:none;border-radius:8px;padding:13px 22px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.03em;transition:all .2s ease;width:100%;justify-content:center;margin-bottom:14px}
+  .export-btn:hover{background:var(--navy-light);transform:translateY(-1px);box-shadow:0 4px 14px rgba(13,34,64,.3)}
+  .export-output{display:none;background:var(--navy);color:#c8d9ef;border-radius:8px;padding:20px;font-family:'DM Mono',monospace;font-size:12px;line-height:1.8;white-space:pre-wrap;position:relative}
+  .export-output.visible{display:block}
+  .export-copy-btn{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);border-radius:4px;padding:4px 10px;font-family:'DM Mono',monospace;font-size:10px;cursor:pointer;transition:all .2s ease}
+  .export-copy-btn:hover{background:rgba(255,255,255,.2);color:var(--white)}
+  .footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--text-muted);border-top:1px solid var(--border);max-width:960px;margin:0 auto;line-height:1.6}
+  .footer a{color:var(--text-muted);text-decoration:underline}
+  .spacer{margin-bottom:20px}
+  .val-green{color:var(--green)!important}.val-red{color:var(--red)!important}.val-amber{color:var(--amber)!important}
+  .flash{animation:numFlash .3s ease}
+  @keyframes numFlash{0%{opacity:.4;transform:translateY(-2px)}100%{opacity:1;transform:translateY(0)}}
+  .fade-in{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
+  .fade-in.visible{opacity:1;transform:translateY(0)}
+  @media(min-width:600px){.controls-grid{grid-template-columns:repeat(2,1fr)}.advanced-grid{grid-template-columns:repeat(4,1fr)}.metrics-strip{gap:16px}.header{padding:36px 32px 28px}.main{padding:28px 32px 60px}}
+  @media(min-width:768px){.risk-grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+
+<div class="disclaimer">
+  Strategic scenario modeling prototype only · Not an underwriting, credit approval, or regulatory compliance tool · Assumptions sourced from FDIC Q1 2025, Federal Reserve/NBER, and MBA Q2 2025
+</div>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-top">
+      <div>
+        <div class="brand-tag">Hawaii Commercial Banking · Credit Portfolio Intelligence</div>
+        <h1>Commercial Credit<br>Strategy Brief</h1>
+        <div class="header-sub">Portfolio-level scenario modeling for commercial loan approval strategy, credit risk, and risk-adjusted return</div>
+        <div class="market-tag"><span>🌺</span> Hawaii Market — 2025 Data Calibrated</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;padding-top:4px;">
+        <div id="decision-badge" class="decision-badge badge-optimize">
+          <span class="badge-dot"></span><span id="badge-text">OPTIMIZE</span>
+        </div>
+      </div>
+    </div>
+    <div class="metrics-strip">
+      <div class="metric-card">
+        <div class="metric-label">5-Year NPV</div>
+        <div class="metric-value" id="metric-npv">—</div>
+        <div class="metric-delta" id="metric-npv-delta">vs. do nothing</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Loan Growth</div>
+        <div class="metric-value" id="metric-growth">—</div>
+        <div class="metric-delta delta-neutral">vs. 55% baseline</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Expected Default</div>
+        <div class="metric-value" id="metric-loss">—</div>
+        <div class="metric-delta" id="metric-loss-delta">annualized rate</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="spacer"></div>
+
+  <div class="section-label">Board-Ready Executive Summary</div>
+  <div class="card fade-in">
+    <div class="card-title">Executive Assessment</div>
+    <div class="exec-summary" id="exec-summary">Calculating scenario analysis…</div>
+    <div class="health-score-wrap">
+      <div class="health-dial">
+        <svg width="64" height="64" viewBox="0 0 64 64">
+          <circle cx="32" cy="32" r="26" fill="none" stroke="#e2e8f0" stroke-width="6"/>
+          <circle id="health-arc" cx="32" cy="32" r="26" fill="none" stroke="#2d7a5f" stroke-width="6" stroke-dasharray="163.36" stroke-dashoffset="40" stroke-linecap="round"/>
+        </svg>
+        <div class="health-dial-label">
+          <div class="health-dial-num" id="health-score-num">—</div>
+          <div class="health-dial-text">PHS</div>
+        </div>
+      </div>
+      <div class="health-info">
+        <div class="health-title">Portfolio Health Score</div>
+        <div class="health-sub" id="health-sub">Composite: NIM coverage ratio, default rate vs. break-even threshold, and approval discipline.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Scenario Controls</div>
+  <div class="card fade-in">
+    <div class="card-title">Live Scenario Inputs — Hawaii Commercial CRE</div>
+    <div class="controls-grid">
+      <div class="slider-row">
+        <div class="slider-header"><span class="slider-name">Approval Rate</span><span class="slider-value" id="val-approval">62%</span></div>
+        <input type="range" id="s-approval" min="40" max="85" value="62" step="1">
+        <div class="slider-range-labels"><span>40%</span><span>85%</span></div>
+      </div>
+      <div class="slider-row">
+        <div class="slider-header"><span class="slider-name">Monthly Applications</span><span class="slider-value" id="val-apps">45</span></div>
+        <input type="range" id="s-apps" min="10" max="200" value="45" step="5">
+        <div class="slider-range-labels"><span>10</span><span>200</span></div>
+      </div>
+      <div class="slider-row">
+        <div class="slider-header"><span class="slider-name">Average Loan Size</span><span class="slider-value" id="val-loan">$3.5M</span></div>
+        <input type="range" id="s-loan" min="500000" max="50000000" value="3500000" step="500000">
+        <div class="slider-range-labels"><span>$500K</span><span>$50M</span></div>
+      </div>
+      <div class="slider-row">
+        <div class="slider-header"><span class="slider-name">Expected Default Rate</span><span class="slider-value" id="val-default">1.2%</span></div>
+        <input type="range" id="s-default" min="0.3" max="8" value="1.2" step="0.1">
+        <div class="slider-range-labels"><span>0.3%</span><span>8%</span></div>
+      </div>
+    </div>
+    <div style="margin-top:12px;">
+      <div class="section-label" style="margin-bottom:8px;">Advanced Assumptions</div>
+      <div class="advanced-grid">
+        <div class="adv-field"><label class="adv-label">Net Interest Margin %</label><input type="number" class="adv-input" id="a-nim" value="4.10" step="0.05" min="1" max="10"></div>
+        <div class="adv-field"><label class="adv-label">Loss Severity %</label><input type="number" class="adv-input" id="a-severity" value="38" step="1" min="10" max="80"></div>
+        <div class="adv-field"><label class="adv-label">Discount Rate %</label><input type="number" class="adv-input" id="a-discount" value="9" step="0.25" min="4" max="18"></div>
+        <div class="adv-field"><label class="adv-label">Time Horizon (Yrs)</label><input type="number" class="adv-input" id="a-horizon" value="5" step="1" min="1" max="10"></div>
+      </div>
+    </div>
+    <div class="source-note">
+      <strong>2025 Data Sources &amp; Rationale:</strong><br>
+      · <strong>NIM 4.10%</strong> — FDIC Q1 2025: community bank NIM = 3.46% (4th consecutive quarterly increase); commercial CRE carries ~65bp premium above portfolio average →
+      <a href="https://www.fdic.gov/news/press-releases/2025/fdic-insured-institutions-reported-return-assets-116-percent-and-net" target="_blank">FDIC Q1 2025 Press Release</a> ·
+      <a href="https://icba.org/newsroom/news-and-articles/2025/05/29/community-bank-net-income-increases-in-q1" target="_blank">ICBA Q1 2025</a><br>
+      · <strong>Loss Severity 38%</strong> — Federal Reserve/NBER: banks recover ~70% of CRE loan balances on default (avg loss ~30%); Hawaii CRE collateral premium raises this to 38% →
+      <a href="https://www.nber.org/system/files/working_papers/w31970/w31970.pdf" target="_blank">NBER Working Paper W31970</a> ·
+      <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2608442" target="_blank">FDIC/SSRN CRE LGD Study</a><br>
+      · <strong>Default Rate 1.2%</strong> — MBA Q2 2025: bank/thrift CRE delinquency = 1.29%; Hawaii below national avg given land scarcity, low unemployment (2.5% Hawaii Island, Dec 2025), stable economy →
+      <a href="https://www.mba.org/news-and-research/newsroom/news/2025/09/11/commercial-and-multifamily-mortgage-delinquency-rates-increased-in-second-quarter-2025" target="_blank">MBA Q2 2025</a> ·
+      <a href="https://www.colliers.com/en/research/hawaii/hawaii-island-market-report-2025" target="_blank">Colliers Hawaii 2025</a><br>
+      · <strong>Avg Loan $3.5M</strong> — FHB CRE portfolio $4.41B (Q1 2025 10-Q); BOH investor materials show avg CRE exposure: multi-family $3.1M, retail $2.5M, industrial $13.6M, construction $4.1M. FHB is Hawaii's largest CRE lender with deals ranging $500K–$50M+ →
+      <a href="https://www.sec.gov/Archives/edgar/data/0000036377/000155837025006291/fhb-20250331x10q.htm" target="_blank">FHB Q1 2025 10-Q</a> ·
+      <a href="https://ir.boh.com/static-files/fd378963-28cb-41de-b2dc-cc0775c537da" target="_blank">BOH Q1 2025 Investor Materials</a><br>
+      · <strong>Hawaii CRE Context</strong> — "Capital-available but capital-protected" market; relationship-driven; limited land supply; Honolulu SFH median $1.15M (Q1 2025); Hawaii Island unemployment 2.5% (Colliers Dec 2025) →
+      <a href="https://brevitas.com/blog/hawaii-commercial-real-estate-market-trends-investment-outlook" target="_blank">Brevitas Hawaii CRE 2025</a> ·
+      <a href="https://hicentral.com/mpr/mpr-2025-03.php" target="_blank">Honolulu Board of Realtors Q1 2025</a>
+    </div>
+  </div>
+
+  <div class="section-label">Do Nothing vs. Proposed Scenario</div>
+  <div class="card fade-in" style="padding:0;overflow:hidden;">
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th style="padding-left:20px;padding-top:16px;padding-bottom:12px;">Scenario</th>
+            <th>Monthly Loans</th><th>Annual Net Return</th><th>5-Yr NPV</th>
+            <th style="padding-right:20px;">Expected Loss Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row-baseline">
+            <td style="padding-left:20px;"><div class="scenario-tag"><span class="tag-dot" style="background:#8fa3bb;"></span>Do Nothing (55%)</div></td>
+            <td id="cmp-base-loans">—</td><td id="cmp-base-return">—</td><td id="cmp-base-npv">—</td>
+            <td id="cmp-base-loss" style="padding-right:20px;">—</td>
+          </tr>
+          <tr class="row-proposed">
+            <td style="padding-left:20px;"><div class="scenario-tag"><span class="tag-dot" style="background:#2d7a5f;"></span><strong>Proposed</strong></div></td>
+            <td id="cmp-prop-loans" style="font-weight:600;">—</td><td id="cmp-prop-return" style="font-weight:600;">—</td>
+            <td id="cmp-prop-npv" style="font-weight:600;">—</td><td id="cmp-prop-loss" style="padding-right:20px;font-weight:600;">—</td>
+          </tr>
+          <tr>
+            <td style="padding-left:20px;padding-bottom:16px;"><div class="scenario-tag" style="color:var(--text-muted);font-size:11px;"><span class="tag-dot" style="background:var(--navy);"></span>Delta</div></td>
+            <td id="cmp-delta-loans" style="padding-bottom:16px;font-size:11px;color:var(--text-muted);">—</td>
+            <td id="cmp-delta-return" style="padding-bottom:16px;font-size:11px;">—</td>
+            <td id="cmp-delta-npv" style="padding-bottom:16px;font-size:11px;">—</td>
+            <td id="cmp-delta-loss" style="padding-right:20px;padding-bottom:16px;font-size:11px;">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-label">Approval Rate vs. Risk-Adjusted Return</div>
+  <div class="card fade-in">
+    <div class="card-title">Tradeoff Curve — Hawaii Commercial CRE</div>
+    <canvas id="tradeoff-canvas" height="200"></canvas>
+    <div style="display:flex;gap:16px;margin-top:10px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);"><div style="width:12px;height:4px;background:#d4820a;border-radius:2px;opacity:.6;"></div>Under-lending</div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);"><div style="width:12px;height:4px;background:#2d7a5f;border-radius:2px;opacity:.7;"></div>Optimal band</div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);"><div style="width:12px;height:4px;background:#c0392b;border-radius:2px;opacity:.6;"></div>Risk zone</div>
+    </div>
+  </div>
+
+  <div class="section-label">Risk Snapshot — Stress Testing</div>
+  <div class="card fade-in">
+    <div class="card-title">Downside Analysis &amp; Break-Even Threshold</div>
+    <div class="risk-grid">
+      <div class="risk-cell"><div class="risk-cell-label">Base NPV</div><div class="risk-cell-value" id="risk-base-npv">—</div><div class="risk-cell-sub">Current assumptions</div></div>
+      <div class="risk-cell"><div class="risk-cell-label">Stress NPV</div><div class="risk-cell-value" id="risk-stress-npv">—</div><div class="risk-cell-sub">+25% default rate</div></div>
+      <div class="risk-cell"><div class="risk-cell-label">Break-Even Default</div><div class="risk-cell-value" id="risk-breakeven">—</div><div class="risk-cell-sub">NIM ÷ Loss Severity*</div></div>
+      <div class="risk-cell"><div class="risk-cell-label">NCO Coverage</div><div class="risk-cell-value" id="risk-coverage">—</div><div class="risk-cell-sub">NIM vs. expected loss</div></div>
+    </div>
+    <div class="risk-status" id="risk-status-box"><span>●</span><span id="risk-status-text">Evaluating…</span></div>
+    <div class="source-note">*Break-even = NIM ÷ Loss Severity (pre-expense approximation). True break-even is lower after operating costs and provisioning. Use as directional upper bound.</div>
+  </div>
+
+  <div class="section-label">Sensitivity Analysis</div>
+  <div class="card fade-in">
+    <div class="card-title">Primary Lever — NPV Impact (10% Change in Each Variable)</div>
+    <div class="lever-bars">
+      <div class="lever-row"><div class="lever-name">Approval Rate</div><div class="lever-bar-wrap"><div class="lever-bar-fill" id="lever-bar-approval" style="background:var(--navy);width:70%;"></div></div><div class="lever-pct" id="lever-pct-approval">70%</div></div>
+      <div class="lever-row"><div class="lever-name">Default Rate</div><div class="lever-bar-wrap"><div class="lever-bar-fill" id="lever-bar-default" style="background:var(--red);width:20%;"></div></div><div class="lever-pct" id="lever-pct-default">20%</div></div>
+      <div class="lever-row"><div class="lever-name">Loan Volume</div><div class="lever-bar-wrap"><div class="lever-bar-fill" id="lever-bar-volume" style="background:var(--slate);width:10%;"></div></div><div class="lever-pct" id="lever-pct-volume">10%</div></div>
+    </div>
+    <div class="lever-insight" id="lever-insight">Calculating sensitivity…</div>
+  </div>
+
+  <div class="section-label">Credit Committee Brief</div>
+  <div class="card fade-in">
+    <div class="card-title">Export Executive Summary</div>
+    <p style="font-size:12.5px;color:var(--text-secondary);margin-bottom:14px;line-height:1.55;">Generate a formatted credit committee brief with full methodology and 2025 source citations.</p>
+    <button class="export-btn" onclick="generateExport()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14,2 14,8 20,8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+      Generate Credit Committee Brief
+    </button>
+    <div class="export-output" id="export-output">
+      <button class="export-copy-btn" onclick="copyExport()">Copy</button>
+      <div id="export-text"></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <strong>Commercial Credit Portfolio Strategy Brief</strong> — Prepared by Jamie Iha<br>
+  Portfolio: <a href="https://jmeihadsgn.wixstudio.com/jamieiha" target="_blank">jmeihadsgn.wixstudio.com/jamieiha</a><br>
+  Data Sources:
+  <a href="https://www.fdic.gov/quarterly-banking-profile/quarterly-banking-profile-q1-2025" target="_blank">FDIC Q1 2025</a> ·
+  <a href="https://www.nber.org/system/files/working_papers/w31970/w31970.pdf" target="_blank">Federal Reserve/NBER W31970</a> ·
+  <a href="https://www.mba.org/news-and-research/newsroom/news/2025/09/11/commercial-and-multifamily-mortgage-delinquency-rates-increased-in-second-quarter-2025" target="_blank">MBA Q2 2025</a> ·
+  <a href="https://brevitas.com/blog/hawaii-commercial-real-estate-market-trends-investment-outlook" target="_blank">Brevitas Hawaii CRE 2025</a> ·
+  <a href="https://www.colliers.com/en/research/hawaii/hawaii-island-market-report-2025" target="_blank">Colliers Hawaii 2025</a>
+</div>
+
+<script>
+const state={approval:.62,apps:45,loanSize:3500000,defaultRate:.012,nim:.0410,severity:.38,discount:.09,horizon:5};
+const BASELINE=.55;
+
+function fmtC(n){const a=Math.abs(n),s=n<0?'-':'';if(a>=1e9)return s+'$'+(a/1e9).toFixed(2)+'B';if(a>=1e6)return s+'$'+(a/1e6).toFixed(2)+'M';if(a>=1e3)return s+'$'+(a/1e3).toFixed(1)+'K';return s+'$'+a.toFixed(0)}
+function fmtP(n,d=1){return(n*100).toFixed(d)+'%'}
+function fmtD(n){return n===0?'—':(n>0?'+':'')+fmtC(n)}
+
+function calc(ar){
+  const lb=state.apps*ar;
+  const vol=lb*state.loanSize*12;
+  const inc=vol*state.nim;
+  const loss=vol*state.defaultRate*state.severity;
+  const net=inc-loss;
+  let npv=0;
+  for(let y=1;y<=state.horizon;y++) npv+=net/Math.pow(1+state.discount,y);
+  return{lb,vol,inc,loss,net,npv,rar:vol>0?net/vol:0};
+}
+
+function calcStress(ar){
+  const lb=state.apps*ar,vol=lb*state.loanSize*12,inc=vol*state.nim;
+  const loss=vol*state.defaultRate*1.25*state.severity,net=inc-loss;
+  let npv=0;
+  for(let y=1;y<=state.horizon;y++) npv+=net/Math.pow(1+state.discount,y);
+  return{npv,net};
+}
+
+function be(){return state.nim/state.severity}
+
+function decision(s){
+  if(state.defaultRate>.040||s.net<0) return'RISKY';
+  if(state.approval<.52&&s.rar>0) return'CONSERVATIVE';
+  if(s.rar>0&&state.defaultRate<=.030) return'OPTIMIZE';
+  return'MONITOR';
+}
+
+function healthScore(s){
+  const nc=Math.min(1,s.inc/(s.loss+1));
+  const ds=Math.max(0,1-state.defaultRate/.04);
+  const as=state.approval>=.50&&state.approval<=.70?1:state.approval>.70?Math.max(0,1-(state.approval-.70)/.15):Math.max(0,state.approval/.50);
+  return Math.round(Math.min(100,Math.max(0,(nc*.50+ds*.35+as*.15)*100)));
+}
+
+function setText(id,v){document.getElementById(id).textContent=v}
+function anim(id,v){const e=document.getElementById(id);e.textContent=v;e.classList.remove('flash');void e.offsetWidth;e.classList.add('flash')}
+function setBar(bid,pid,p){document.getElementById(bid).style.width=p+'%';document.getElementById(pid).textContent=p+'%'}
+
+function update(){
+  const c=calc(state.approval),b=calc(BASELINE),st=calcStress(state.approval),brk=be();
+  const d=decision(c),hs=healthScore(c);
+  const lg=b.lb>0?(c.lb-b.lb)/b.lb:0;
+  const nd=c.npv-b.npv;
+  const ncr=c.loss>0?c.inc/c.loss:999;
+
+  anim('metric-npv',fmtC(c.npv));
+  const nde=document.getElementById('metric-npv-delta');
+  nde.textContent=fmtD(nd)+' vs. do nothing';nde.className='metric-delta '+(nd>=0?'delta-up':'delta-down');
+  anim('metric-growth',(lg>=0?'+':'')+fmtP(lg));
+  document.getElementById('metric-growth').className='metric-value '+(lg>=0?'val-green':'val-red');
+  anim('metric-loss',fmtP(state.defaultRate));
+  document.getElementById('metric-loss').className='metric-value '+(state.defaultRate>.040?'val-red':state.defaultRate>.025?'val-amber':'val-green');
+
+  const badge=document.getElementById('decision-badge');
+  badge.className='decision-badge '+{OPTIMIZE:'badge-optimize',CONSERVATIVE:'badge-conservative',RISKY:'badge-risky',MONITOR:'badge-monitor'}[d];
+  document.getElementById('badge-text').textContent={OPTIMIZE:'OPTIMIZE: Expand within risk tolerance',CONSERVATIVE:'CONSERVATIVE: Leaving revenue on the table',RISKY:'RISKY: Losses outweigh incremental return',MONITOR:'MONITOR: Within tolerance, watch closely'}[d];
+
+  let summ='';
+  if(d==='OPTIMIZE') summ=`At current scenario assumptions, the proposed approval rate of ${fmtP(state.approval)} supports a risk-adjusted return of ${fmtP(c.rar,2)} on deployed capital. Expected losses of ${fmtP(state.defaultRate)} remain well below the break-even threshold of ${fmtP(brk)} — calculated as NIM (${fmtP(state.nim,2)}) divided by loss severity (${fmtP(state.severity,0)}) — with NIM providing ${ncr.toFixed(1)}x coverage over anticipated charge-offs. Hawaii's CRE collateral environment, characterized by land scarcity and unemployment at 2.5% (Colliers, Dec 2025), supports the conservative loss severity assumption. The recommended action is to sustain or modestly expand commercial approval capacity without loosening underwriting standards.`;
+  else if(d==='CONSERVATIVE') summ=`The current commercial approval rate of ${fmtP(state.approval)} may be excluding creditworthy borrowers at the margin. NIM of ${fmtP(state.nim,2)} provides ${ncr.toFixed(1)}x coverage over projected losses at the current default assumption of ${fmtP(state.defaultRate)}, which sits below the MBA Q2 2025 national bank/thrift rate of 1.29%. The 5-year NPV differential vs. the do-nothing baseline is ${fmtD(nd)}. A structured vintage analysis of recently declined commercial applications may identify deals excluded without commensurate credit risk reduction.`;
+  else if(d==='RISKY') summ=`Current conditions present material risk to the commercial portfolio. ${state.defaultRate>.040?`Expected default rate of ${fmtP(state.defaultRate)} exceeds the 4.0% commercial risk threshold`:'Net return has turned negative'}. In commercial lending, large individual deal sizes amplify the impact of defaults — $957 billion in national CRE loans matured in 2025 (Kaplan Group), creating elevated refinancing pressure. Stress-case NPV of ${fmtC(st.npv)} reflects significant downside. Recommended action: tighten underwriting overlays and prioritize deal quality over origination volume.`;
+  else summ=`Current commercial portfolio assumptions sit within an acceptable but watchable range. The approval rate of ${fmtP(state.approval)} and expected default of ${fmtP(state.defaultRate)} — compared to the MBA Q2 2025 bank rate of 1.29% nationally — yield a risk-adjusted return of ${fmtP(c.rar,2)}. Hawaii CRE showed resilience in 2025 with tight industrial vacancy (1–2% on Oahu) and stable retail occupancy. Close monitoring of 30/60/90-day delinquency trends and NIM compression is recommended.`;
+  document.getElementById('exec-summary').textContent=summ;
+
+  const circ=2*Math.PI*26,off=circ*(1-hs/100);
+  const arc=document.getElementById('health-arc');
+  arc.style.strokeDashoffset=off;arc.style.stroke=hs>=75?'#2d7a5f':hs>=50?'#d4820a':'#c0392b';
+  document.getElementById('health-score-num').textContent=hs;
+  document.getElementById('health-sub').textContent=hs>=80?'Portfolio quality strong. NIM well covers expected losses with disciplined approval standards.':hs>=60?'Portfolio health acceptable. Monitor default trends and NIM compression closely.':'Portfolio health under pressure. Default rate and/or approval criteria require review.';
+
+  setText('cmp-base-loans',Math.round(b.lb)+'/mo');setText('cmp-base-return',fmtC(b.net));setText('cmp-base-npv',fmtC(b.npv));setText('cmp-base-loss',fmtP(state.defaultRate));
+  setText('cmp-prop-loans',Math.round(c.lb)+'/mo');
+  const pre=document.getElementById('cmp-prop-return');pre.textContent=fmtC(c.net);pre.style.color=c.net>=b.net?'var(--green)':'var(--red)';
+  setText('cmp-prop-npv',fmtC(c.npv));document.getElementById('cmp-prop-npv').style.color=c.npv>=b.npv?'var(--green)':'var(--red)';
+  setText('cmp-prop-loss',fmtP(state.defaultRate));
+  const dl=Math.round(c.lb-b.lb),dr=c.net-b.net,dn=c.npv-b.npv;
+  setText('cmp-delta-loans',(dl>=0?'+':'')+dl+'/mo');
+  const dre=document.getElementById('cmp-delta-return');dre.textContent=fmtD(dr)+'/yr';dre.className=dr>=0?'val-green':'val-red';
+  const dne=document.getElementById('cmp-delta-npv');dne.textContent=fmtD(dn);dne.className=dn>=0?'val-green':'val-red';
+  setText('cmp-delta-loss','—');
+
+  const cov=c.loss>0?c.inc/c.loss:999;
+  anim('risk-base-npv',fmtC(c.npv));anim('risk-stress-npv',fmtC(st.npv));
+  document.getElementById('risk-stress-npv').style.color=st.npv<c.npv?'var(--amber)':'';
+  anim('risk-breakeven',fmtP(brk));anim('risk-coverage',cov.toFixed(1)+'x');
+  document.getElementById('risk-coverage').style.color=cov>=3?'var(--green)':cov>=1.5?'var(--amber)':'var(--red)';
+
+  const ok=state.defaultRate<brk*.75&&st.npv>0;
+  document.getElementById('risk-status-box').className='risk-status '+(ok?'risk-ok':'risk-warn');
+  document.getElementById('risk-status-text').textContent=ok?'Risk remains acceptable — NIM provides adequate buffer above expected commercial losses under base and stress scenarios.':'Risk approaching tolerance — Commercial portfolio concentration risk amplifies downside. Review underwriting overlays and deal-level exposure limits.';
+
+  const bv=c.npv;
+  const as_=Math.abs(calc(state.approval*1.10).npv-bv);
+  const sd=state.defaultRate;state.defaultRate*=1.10;const ds_=Math.abs(calc(state.approval).npv-bv);state.defaultRate=sd;
+  const sa=state.apps;state.apps=Math.round(state.apps*1.10);const vs_=Math.abs(calc(state.approval).npv-bv);state.apps=sa;
+  const tot=as_+ds_+vs_||1;
+  const ap=Math.round(as_/tot*100),dp=Math.round(ds_/tot*100),vp=Math.round(vs_/tot*100);
+  setBar('lever-bar-approval','lever-pct-approval',ap);setBar('lever-bar-default','lever-pct-default',dp);setBar('lever-bar-volume','lever-pct-volume',vp);
+
+  const pl=ap>=dp&&ap>=vp?'approval':dp>=ap&&dp>=vp?'default':'volume';
+  document.getElementById('lever-insight').textContent={
+    approval:`Approval rate is the highest-impact lever — a 10% change drives ${fmtP(ap/100)} of total NPV sensitivity. In commercial lending, this often reflects underwriting conservatism rather than demand constraints. A vintage analysis of recently declined deals may identify creditworthy borrowers excluded by outdated criteria.`,
+    default:`Credit quality is the dominant constraint — a 10% shift in default rate drives ${fmtP(dp/100)} of total NPV sensitivity. In commercial portfolios, fewer larger deals mean a single default has outsized impact. Growth expansion should wait until deal-level underwriting quality is confirmed.`,
+    volume:`Deal pipeline volume is the primary driver at ${fmtP(vp/100)} of total sensitivity. Commercial loan growth in Hawaii is relationship-driven. Investment in banker capacity and business development would generate the highest marginal return at current credit quality levels.`
+  }[pl];
+
+  drawTradeoff(c.rar);
+}
+
+function drawTradeoff(cur){
+  const canvas=document.getElementById('tradeoff-canvas');
+  const dpr=window.devicePixelRatio||1,W=canvas.clientWidth,H=200;
+  canvas.width=W*dpr;canvas.height=H*dpr;
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const pad={top:16,right:16,bottom:36,left:52};
+  const cW=W-pad.left-pad.right,cH=H-pad.top-pad.bottom;
+  ctx.clearRect(0,0,W,H);
+  const approvals=[];for(let a=.38;a<=.88;a+=.01)approvals.push(a);
+  const rars=approvals.map(a=>{
+    const lo=a*state.apps,vol=lo*state.loanSize*12,inc=vol*state.nim,loss=vol*state.defaultRate*state.severity,net=inc-loss;
+    const qp=a>.70?Math.pow((a-.70)/.15,2)*.4*net:0;
+    return vol>0?(net-qp)/vol:0;
+  });
+  const rMax=Math.max(...rars),rMin=Math.min(0,Math.min(...rars)),rRange=rMax-rMin||.01;
+  const tx=a=>pad.left+((a-.38)/.50)*cW;
+  const ty=r=>pad.top+cH-((r-rMin)/rRange)*cH;
+  [{from:.38,to:.52,color:'rgba(212,130,10,0.08)'},{from:.52,to:.74,color:'rgba(45,122,95,0.10)'},{from:.74,to:.88,color:'rgba(192,57,43,0.08)'}].forEach(z=>{ctx.fillStyle=z.color;ctx.fillRect(tx(z.from),pad.top,tx(z.to)-tx(z.from),cH)});
+  ctx.strokeStyle='#e2e8f0';ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){const r=rMin+(rRange/4)*i,y=ty(r);ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(pad.left+cW,y);ctx.stroke();ctx.fillStyle='#8fa3bb';ctx.font='500 9px DM Mono,monospace';ctx.textAlign='right';ctx.fillText(fmtP(r,1),pad.left-6,y+3)}
+  if(rMin<0){ctx.strokeStyle='#c8d5e3';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);ctx.beginPath();ctx.moveTo(pad.left,ty(0));ctx.lineTo(pad.left+cW,ty(0));ctx.stroke();ctx.setLineDash([])}
+  ctx.beginPath();approvals.forEach((a,i)=>{const x=tx(a),y=ty(rars[i]);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)});
+  ctx.strokeStyle='rgba(26,53,88,0.7)';ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.stroke();
+  ctx.lineTo(tx(.88),pad.top+cH);ctx.lineTo(tx(.38),pad.top+cH);ctx.closePath();
+  const g=ctx.createLinearGradient(0,pad.top,0,pad.top+cH);g.addColorStop(0,'rgba(26,53,88,0.12)');g.addColorStop(1,'rgba(26,53,88,0.01)');ctx.fillStyle=g;ctx.fill();
+  const cx=tx(state.approval),cy=ty(cur);
+  ctx.beginPath();ctx.arc(cx,cy,6,0,Math.PI*2);ctx.fillStyle='#0d2240';ctx.fill();
+  ctx.beginPath();ctx.arc(cx,cy,4,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();
+  ctx.beginPath();ctx.arc(cx,cy,2,0,Math.PI*2);ctx.fillStyle='#0d2240';ctx.fill();
+  ctx.fillStyle='#0d2240';ctx.font='600 10px DM Sans,sans-serif';ctx.textAlign='center';
+  ctx.fillText('Current: '+fmtP(state.approval),cx,cy>pad.top+24?cy-12:cy+20);
+  ctx.fillStyle='#8fa3bb';ctx.font='500 9px DM Mono,monospace';ctx.textAlign='center';
+  [.40,.50,.60,.70,.80].forEach(a=>ctx.fillText(Math.round(a*100)+'%',tx(a),H-8));
+  ctx.fillText('Approval Rate →',pad.left+cW/2,H-2);
+}
+
+function generateExport(){
+  const c=calc(state.approval),b=calc(BASELINE),st=calcStress(state.approval),brk=be(),d=decision(c);
+  const dt=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  const text=`CREDIT COMMITTEE BRIEF
+═══════════════════════════════════════════════════
+First Hawaiian Bank — Hawaii Commercial Real Estate Lending
+Prepared by: Jamie Iha  |  Date: ${dt}
+Data: FDIC Q1 2025 · Federal Reserve/NBER · MBA Q2 2025 · Colliers Hawaii 2025
+═══════════════════════════════════════════════════
+
+RECOMMENDATION
+──────────────
+${d==='OPTIMIZE'?`Optimize commercial approval capacity within the current risk band. The proposed rate of ${fmtP(state.approval)} supports positive risk-adjusted return. Default rate of ${fmtP(state.defaultRate)} is well below the break-even threshold of ${fmtP(brk)} and below the MBA Q2 2025 national bank average of 1.29%.`:d==='CONSERVATIVE'?`Review commercial underwriting criteria for potential over-conservatism. Approval rate of ${fmtP(state.approval)} may be excluding creditworthy borrowers. Current default assumption of ${fmtP(state.defaultRate)} is below the MBA Q2 2025 national bank rate of 1.29%, suggesting room to optimize.`:d==='RISKY'?`Tighten commercial underwriting standards before expanding deal volume. Default rate assumption of ${fmtP(state.defaultRate)} exceeds safe operating parameters for a community bank commercial portfolio where large individual deal sizes amplify default impact.`:`Maintain current posture with active monitoring. Scenario within tolerance but warrants close oversight of deal performance, CRE concentration limits, and NIM compression.`}
+
+MODEL METHODOLOGY — FORMULAS
+──────────────────────────────
+  F1. Annual Loan Volume   = Monthly Apps × Approval Rate × Avg Loan Size × 12
+                           = ${state.apps} × ${fmtP(state.approval)} × ${fmtC(state.loanSize)} × 12
+                           = ${fmtC(c.vol)}
+
+  F2. Annual Interest Inc  = Annual Volume × NIM
+                           = ${fmtC(c.vol)} × ${fmtP(state.nim,2)}
+                           = ${fmtC(c.inc)}
+
+  F3. Annual Expected Loss = Annual Volume × Default Rate × Loss Severity
+                           = ${fmtC(c.vol)} × ${fmtP(state.defaultRate)} × ${fmtP(state.severity,0)}
+                           = ${fmtC(c.loss)}
+
+  F4. Annual Net Return    = Interest Income − Expected Loss
+                           = ${fmtC(c.inc)} − ${fmtC(c.loss)} = ${fmtC(c.net)}
+
+  F5. NPV (${state.horizon}-Year)      = Σ [Net Return ÷ (1 + ${fmtP(state.discount,0)})^Year]
+                           = ${fmtC(c.npv)}
+
+  F6. Break-Even Default  = NIM ÷ Loss Severity (pre-expense upper bound)
+                           = ${fmtP(state.nim,2)} ÷ ${fmtP(state.severity,0)} = ${fmtP(brk)}
+                           Note: True break-even lower after operating costs & provisioning.
+
+FINANCIAL IMPACT
+────────────────
+  5-Year NPV (Base):        ${fmtC(c.npv)}
+  5-Year NPV (Stress +25%): ${fmtC(st.npv)}
+  Annual Net Return:        ${fmtC(c.net)}
+  Delta vs. Do Nothing:     ${fmtD(c.npv-b.npv)}
+
+RISK ASSESSMENT
+───────────────
+  Expected Default Rate:    ${fmtP(state.defaultRate)} (MBA Q2 2025 bank/thrift avg: 1.29%)
+  Break-Even Default Rate:  ${fmtP(brk)}
+  Loss Severity:            ${fmtP(state.severity,0)} (Fed/NBER: avg ~30%; Hawaii CRE: ~38%)
+  NCO Coverage:             ${(c.inc/(c.loss||1)).toFixed(1)}x
+  Stress NPV (+25% default): ${fmtC(st.npv)}
+
+KEY ASSUMPTIONS — 2025 SOURCED
+────────────────────────────────
+  NIM 4.10%:      FDIC Q1 2025 community bank NIM 3.46% + ~65bp commercial premium
+                  Source: fdic.gov/quarterly-banking-profile/quarterly-banking-profile-q1-2025
+  Loss Sev 38%:   Federal Reserve/NBER: banks recover ~70% on CRE default; Hawaii premium
+                  Source: nber.org/system/files/working_papers/w31970/w31970.pdf
+  Default 1.2%:   MBA Q2 2025 bank/thrift CRE delinquency 1.29%; Hawaii below national avg
+                  Hawaii unemployment 2.5% (Colliers Dec 2025), stable CRE fundamentals
+                  Source: mba.org · colliers.com/en/research/hawaii
+  Avg Loan $3.5M:  FHB CRE portfolio $4.41B (Q1 2025 10-Q); BOH avg CRE exposure $2.5M-$13.6M by segment
+                       Source: FHB Q1 2025 10-Q · BOH Q1 2025 Investor Materials
+  Monthly Apps 45: Relationship-driven community bank scale; not volume-driven
+
+SUGGESTED NEXT STEP
+────────────────────
+${d==='OPTIMIZE'?'Conduct segmented vintage analysis of recently declined commercial applications. Validate loss severity assumptions against FHB Hawaii-specific NCO history and current CRE valuations.':d==='CONSERVATIVE'?'Commission deal-level review of commercial declines over past 12-18 months. Assess whether approval criteria reflect current Hawaii market conditions, collateral values, and borrower cash flow quality.':d==='RISKY'?'Implement tighter underwriting overlays on new commercial originations. Conduct portfolio stress test against Hawaii CRE value decline scenario. Assess concentration risk before next credit cycle.':'Establish monthly commercial portfolio review cadence. Monitor 30/60/90-day delinquency trends. Review NIM assumptions for rate compression risk on variable-rate commercial credits.'}
+
+═══════════════════════════════════════════════════
+DISCLAIMER: Strategic scenario model only. Not underwriting, credit approval, or compliance output.
+Prepared by Jamie Iha — jmeihadsgn.wixstudio.com/jamieiha`;
+  document.getElementById('export-text').textContent=text;
+  const out=document.getElementById('export-output');out.classList.add('visible');
+  out.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function copyExport(){
+  navigator.clipboard.writeText(document.getElementById('export-text').textContent).then(()=>{
+    const b=document.querySelector('.export-copy-btn');b.textContent='Copied!';
+    setTimeout(()=>b.textContent='Copy',2000);
+  });
+}
+
+function bindSlider(id,vid,key,fmt,tfm){
+  const el=document.getElementById(id),ve=document.getElementById(vid);
+  el.addEventListener('input',()=>{const r=parseFloat(el.value);state[key]=tfm?tfm(r):r;ve.textContent=fmt(r);update()});
+}
+bindSlider('s-approval','val-approval','approval',v=>v+'%',v=>v/100);
+bindSlider('s-apps','val-apps','apps',v=>Math.round(v),null);
+bindSlider('s-loan','val-loan','loanSize',v=>v>=1e6?'$'+(v/1e6).toFixed(1)+'M':'$'+(v/1e3).toFixed(0)+'K',null);
+bindSlider('s-default','val-default','defaultRate',v=>v+'%',v=>v/100);
+['a-nim','a-severity','a-discount','a-horizon'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',e=>{
+    const v=parseFloat(e.target.value)||0;
+    if(id==='a-nim')state.nim=v/100;if(id==='a-severity')state.severity=v/100;
+    if(id==='a-discount')state.discount=v/100;if(id==='a-horizon')state.horizon=Math.max(1,Math.round(v));
+    update();
+  });
+});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.08});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+window.addEventListener('resize',()=>{const c=calc(state.approval);drawTradeoff(c.rar)});
+update();
+</script>
+</body>
+</html>
